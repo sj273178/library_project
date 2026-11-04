@@ -43,3 +43,4 @@ require __DIR__ . '/../includes/header.php';
         <p><button class="button">Update book</button></p>
     </form>
 </div>
+<?php require __DIR__ . '/../includes/footer.php'; ?>
