@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/auth_check.php';
 $member = [];
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($a_SERVER['REQUEST_METHOD'] === 'POST') {
     $member = $_POST;
     if (post('member_number') === '' || post('full_name') === '' || !filter_var(post('email'), FILTER_VALIDATE_EMAIL) || post('phone') === '') {
         $error = 'Complete all fields and use a valid email.';
