@@ -1,3 +1,26 @@
+<?php
+require_once __DIR__ . '/../includes/auth_check.php';
+
+$errors = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = post('name');
+    $description = post('description');
+    if ($name === '' || $description === '') {
+        $errors[] = 'Name and description are required.';
+    } else {
+        try {
+            $pdo->prepare('INSERT INTO categories (name, description) VALUES (?, ?)')->execute([$name, $description]);
+            flash('success', 'Category added successfully.');
+            redirect('/categories/index.php');
+        } catch (PDOException $exception) {
+            $errors[] = 'That category already exists.';
+        }
+    }
+}
+$categories = $pdo->query('SELECT * FROM categories ORDER BY name')->fetchAll();
+$page_title = 'Categories';
+require __DIR__ . '/../includes/header.php';
+?>
 <div class="toolbar">
     <h1>Categories</h1>
 </div>
@@ -36,3 +59,5 @@
         </table>
     </div>
 </div>
+
+<?php require __DIR__ . '/../includes/footer.php'; ?>
