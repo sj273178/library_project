@@ -1,0 +1,8 @@
+:root {
+  --brand: var(--theme-color, var(--green, #176b5b));
+  --brand-dark: #104c42;
+  --ink: #1d2b28;
+  --muted: #71807b;
+  --paper: #fffefa;
+  --line: #e4e9e5;
+}
