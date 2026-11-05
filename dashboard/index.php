@@ -1,5 +1,4 @@
 <?php
-// Owner: Esther Naki | Commit stage: 1 of 1 (dashboard)
 require_once __DIR__ . '/../includes/auth_check.php';
 
 $counts = [];

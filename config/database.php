@@ -1,4 +1,3 @@
-
 <?php
 declare(strict_types=1);
 
@@ -36,21 +35,21 @@ $password = '';
 $dbname = 'library_db';
 
 
-// Create database connection
-$conn = new mysqli(
-    $host,
-    $username,
-    $password,
-    $dbname
-);
-
-// Check connection
-if ($conn->connect_error) {
-    error_log($conn->connect_error);
-    die('Database connection failed.');
+// Create a PDO database connection.
+try {
+    $pdo = new PDO(
+        "mysql:host={$host};dbname={$dbname};charset=utf8mb4",
+        $username,
+        $password,
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ]
+    );
+} catch (PDOException $exception) {
+    error_log($exception->getMessage());
+    exit('Database connection failed.');
 }
-
-// Set character encoding
-$conn->set_charset('utf8mb4');
 
 ?>
