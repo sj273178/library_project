@@ -1,5 +1,5 @@
 <?php
-// Owner: Irene Akello | Commit stage: 1 of 1 (loan list)
+
 require_once __DIR__ . '/../includes/auth_check.php';
 
 $status = $_GET['status'] ?? 'active';
