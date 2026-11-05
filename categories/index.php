@@ -52,8 +52,8 @@ require __DIR__ . '/../includes/header.php';
             </tr>
             <?php foreach ($categories as $category): ?>
                 <tr>
-                    <td>sample</td>
-                    <td>sample</td>
+                    <td><?= e($category['name']) ?></td>
+                    <td><?= e($category['description']) ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
