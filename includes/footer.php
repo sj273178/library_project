@@ -1,3 +1,4 @@
+ <?php // Owner: Chao Li | Commit stage: 1 of 1 (shared footer) ?>
  </div>
     </main>
     <footer class="site-footer">
