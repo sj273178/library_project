@@ -1,3 +1,9 @@
+<?php
+// Owner: Chao Li | Commit stage: 1 of 1 (shared page header)
+if (!isset($page_title)) {
+    $page_title = 'Library Management System';
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
