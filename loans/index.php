@@ -1,3 +1,24 @@
+<?php
+// Owner: Irene Akello | Commit stage: 1 of 1 (loan list)
+require_once __DIR__ . '/../includes/auth_check.php';
+
+$status = $_GET['status'] ?? 'active';
+$where = match ($status) {
+    'returned' => 'l.date_returned IS NOT NULL',
+    'overdue' => 'l.date_returned IS NULL AND l.due_date < CURDATE()',
+    default => 'l.date_returned IS NULL',
+};
+$loans = $pdo->query(
+    "SELECT l.*, b.title, m.full_name
+     FROM loans l
+     JOIN books b ON b.book_id = l.book_id
+     JOIN members m ON m.member_id = l.member_id
+     WHERE {$where}
+     ORDER BY l.due_date"
+)->fetchAll();
+$page_title = 'Loans';
+require __DIR__ . '/../includes/header.php';
+?>
 <div class="toolbar">
     <h1>Loans</h1>
     <a class="button" href="issue.php">Issue book</a>
@@ -35,3 +56,4 @@
         </table>
     </div>
 </div>
+<?php require __DIR__ . '/../includes/footer.php'; ?>
