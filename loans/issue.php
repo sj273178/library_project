@@ -1,5 +1,5 @@
 <?php
-// Owner: Irene Akello | Commit stage: 1 of 1 (issue transaction)
+
 require_once __DIR__ . '/../includes/auth_check.php';
 
 $error = '';
