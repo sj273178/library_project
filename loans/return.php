@@ -1,5 +1,5 @@
 <?php
-// Owner: Irene Akello | Commit stage: 1 of 1 (return transaction)
+
 require_once __DIR__ . '/../includes/auth_check.php';
 
 $id = (int) ($_GET['id'] ?? 0);
@@ -27,7 +27,8 @@ try {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
     }
-    flash('error', 'Unable to return this book.');
+    flash('error', 'Unable to return this book.'); 
+    
 }
 
 redirect('/loans/index.php');
