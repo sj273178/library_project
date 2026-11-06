@@ -35,5 +35,8 @@ require __DIR__ . '/../includes/header.php';
 </div>
 <div class="card" style="margin-top: 20px"><div class="table-wrap"><table>
     <tr><th>ISBN</th><th>Title</th><th>Author</th><th>Category</th><th>Available</th><th>Actions</th></tr>
-
-    
+ <?php foreach ($books as $book): ?>
+        <tr><td><?= e($book['isbn']) ?></td><td><?= e($book['title']) ?></td><td><?= e($book['author']) ?></td><td><?= e($book['category']) ?></td><td><?= $book['available_copies'] ?> / <?= $book['total_copies'] ?></td><td class="actions"><a class="button small secondary" href="edit.php?id=<?= $book['book_id'] ?>">Edit</a><a class="button small danger" data-confirm="Delete this book?" href="delete.php?id=<?= $book['book_id'] ?>">Delete</a></td></tr>
+    <?php endforeach; ?>
+</table></div></div>
+<?php require __DIR__ . '/../includes/footer.php'; ?>
