@@ -1,9 +1,14 @@
- <?php // Owner: Chao Li | Commit stage: 1 of 1 (shared footer) ?>
- </div>
-    </main>
-    <footer class="site-footer">
-        <div class="container">Library Management System &copy; <?= date('Y') ?></div>
-    </footer>
-    <script src="<?= BASE_URL ?>/assets/js/app.js"></script>
-</body>
-</html>
+<footer class="site-footer">
+    <div class="container footer-content">
+        <p>
+            &copy; <?= date('Y') ?>
+            <strong>Library Management System</strong>.
+            All rights reserved.
+        </p>
+
+        <div class="footer-branding">
+            <strong>Group Focus</strong>
+            <span>Together We Achieve More</span>
+        </div>
+    </div>
+</footer>

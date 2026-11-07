@@ -1,5 +1,5 @@
 <?php
-// Owner: Brian Okello | Commit stage: 1 of 1 (access control)
+
 declare(strict_types=1);
 
 if (session_status() !== PHP_SESSION_ACTIVE) { 

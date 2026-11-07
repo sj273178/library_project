@@ -1,5 +1,4 @@
 <?php
-// Owner: Brian Okello | Commit stage: 1 of 1 (shared helpers)
 declare(strict_types=1);
 
 function e(?string $value): string

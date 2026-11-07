@@ -1,4 +1,4 @@
-<?php // Owner: Chao Li | Commit stage: 1 of 1 (shared navigation) ?>
+<?php ?>
 <header class="site-header">
     <nav class="container nav" aria-label="Main navigation">
         <a class="brand" href="<?= BASE_URL ?>/dashboard/index.php">Library LMS</a>
