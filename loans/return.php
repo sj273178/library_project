@@ -27,7 +27,8 @@ try {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
     }
-    flash('error', 'Unable to return this book.');
+    flash('error', 'Unable to return this book.'); 
+    
 }
 
 redirect('/loans/index.php');
