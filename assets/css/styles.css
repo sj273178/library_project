@@ -45,6 +45,7 @@ body {
 .nav {
   min-height: 64px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
@@ -236,6 +237,7 @@ th {
 
 .footer-content {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
