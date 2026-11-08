@@ -1,21 +1,21 @@
 # Library Management System
 
-GitHub repository: Replace this line with your group repository URL before submission.
+GitHub repository: <https://github.com/sj273178/library_project>.
 
 This PHP and MySQL Library Management System was built for DB II CAT 2. An authenticated librarian can manage books, members, authors, categories, and loans from the browser. The system enforces copy availability, member status, duplicate-loan prevention, automatic fourteen-day due dates, and safe book returns.
 
 ## Group members and responsibilities
 
-| Student | Main responsibility |
-|---|---|
-| Mwaka | Shared includes and project integration |
-| Milly | Authentication |
-| Jeslor | Configuration, database, and categories |
-| Esther M | Books |
-| Suban | Loans |
-| Tukamushaba | Index page and dashboard |
-| Abdirizak | Authors |
-| Swaburah | Members |
+| Student     | Main responsibility                     |
+| ----------- | --------------------------------------- |
+| Mwaka       | Shared includes and project integration |
+| Milly       | Authentication                          |
+| Jeslor      | Configuration, database, and categories |
+| Esther M    | Books                                   |
+| Suban       | Loans                                   |
+| Tukamushaba | Index page and dashboard                |
+| Abdirizak   | Authors                                 |
+| Swaburah    | Members                                 |
 
 ## Requirements
 
@@ -33,9 +33,9 @@ Install XAMPP with Apache, MySQL, and PHP enabled. The project uses PHP PDO with
 
 ## Test accounts
 
-| Username | Password | Role |
-|---|---|---|
-| admin | password | admin |
+| Username  | Password | Role      |
+| --------- | -------- | --------- |
+| admin     | password | admin     |
 | librarian | password | librarian |
 
 These are deliberately fake demonstration accounts. Passwords in the database are stored as `password_hash()` values and login uses `password_verify()`.
@@ -51,4 +51,3 @@ All pages other than the sign-in page require an active PHP session. Database op
 ## Suggested demonstration flow
 
 Sign in, add a book and a member, search for them, edit them, issue a book, return it, then delete records that have no loan history. During the demonstration, attempt to issue an unavailable book, issue the same book twice to one member, issue to a suspended member, and delete a book or member with an active loan. The system should display a clear message for each rejected action.
-
