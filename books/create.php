@@ -8,11 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $book = $_POST;
     $total = integer(post('total_copies'), 1);
     $year = integer(post('year_published'), 1000);
-    if (post('isbn') === '' || post('title') === '' || post('publisher') === '' || !$total || !$year || $year > (int) date('Y')) {
+    $authorId = valid_id(post('author_id'));
+    $categoryId = valid_id(post('category_id'));
+    if (post('isbn') === '' || post('title') === '' || post('publisher') === '' || !$authorId || !$categoryId || !$total || !$year || $year > (int) date('Y')) {
         $error = 'Complete all fields with valid values.';
     } else {
         try {
-            $pdo->prepare('INSERT INTO books (isbn, title, author_id, category_id, publisher, year_published, total_copies, available_copies) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')->execute([post('isbn'), post('title'), (int) post('author_id'), (int) post('category_id'), post('publisher'), $year, $total, $total]);
+            $pdo->prepare('INSERT INTO books (isbn, title, author_id, category_id, publisher, year_published, total_copies, available_copies) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')->execute([post('isbn'), post('title'), $authorId, $categoryId, post('publisher'), $year, $total, $total]);
             flash('success', 'Book added successfully.');
             redirect('/books/index.php');
         } catch (PDOException $exception) {

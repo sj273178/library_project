@@ -4,8 +4,10 @@ require_once __DIR__ . '/../includes/auth_check.php';
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $memberId = (int) post('member_id');
-    $bookId = (int) post('book_id');
+    $memberId = valid_id(post('member_id'));
+    $bookId = valid_id(post('book_id'));
+    if (!$memberId || !$bookId) { $error = 'Choose a valid member and book.'; }
+    else {
     try {
         $pdo->beginTransaction();
         $memberStatement = $pdo->prepare('SELECT status FROM members WHERE member_id = ? FOR UPDATE');
@@ -28,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (Throwable $exception) {
         if ($pdo->inTransaction()) $pdo->rollBack();
         $error = $exception instanceof RuntimeException ? $exception->getMessage() : 'Unable to issue this book.';
+    }
     }
 }
 $members = $pdo->query("SELECT member_id, member_number, full_name FROM members WHERE status = 'active' ORDER BY full_name")->fetchAll();

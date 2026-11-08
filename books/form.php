@@ -17,13 +17,6 @@ $categories = $pdo->query('SELECT * FROM categories ORDER BY name')->fetchAll();
         </select>
     </label></div>
     <div><label>Category
-        <select name="category_id" required> 
-        <?php foreach ($authors as $author): ?>
-                <option value="<?= $author['author_id'] ?>" <?= ($book['author_id'] ?? 0) == $author['author_id'] ? 'selected' : '' ?>><?= e($author['name']) ?></option>
-            <?php endforeach; ?>
-        </select>
-    </label></div>
-    <div><label>Category
         <select name="category_id" required>
             <?php foreach ($categories as $category): ?>
                 <option value="<?= $category['category_id'] ?>" <?= ($book['category_id'] ?? 0) == $category['category_id'] ? 'selected' : '' ?>><?= e($category['name']) ?></option>

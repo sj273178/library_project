@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../includes/auth_check.php';
 
-$id = (int) ($_GET['id'] ?? 0);
+$id = $_SERVER['REQUEST_METHOD'] === 'POST' ? valid_id(post('id')) : null;
+if (!$id) { flash('error', 'Invalid member selected.'); redirect('/members/index.php'); }
 $loanCount = $pdo->prepare('SELECT COUNT(*) FROM loans WHERE member_id = ? AND date_returned IS NULL');
 $loanCount->execute([$id]);
 

@@ -29,11 +29,7 @@ body {
 
 .container {
   width: min(1120px, calc(100% - 32px));
-  height: 100%;
   margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 /* Header and Navigation */
@@ -45,7 +41,6 @@ body {
 .nav {
   min-height: 64px;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
@@ -86,9 +81,10 @@ body {
   padding: 24px;
   box-shadow: 0 1px 3px #172b4d12;
 }
+
 .auth-card {
-  max-width: 500px;
-  margin: auto;
+  width: min(100%, 520px);
+  margin: 48px auto;
 }
 
 .toolbar {
@@ -187,6 +183,8 @@ th {
   white-space: nowrap;
 }
 
+.inline-form { display: inline; margin: 0; }
+
 /* Alerts */
 .alert {
   padding: 11px 14px;
@@ -237,7 +235,6 @@ th {
 
 .footer-content {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 12px;

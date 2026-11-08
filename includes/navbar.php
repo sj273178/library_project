@@ -1,10 +1,5 @@
-<?php 
-    $session = session_status() === PHP_SESSION_ACTIVE ? $_SESSION : [];
-    $isLoggedIn = !empty($session['user_id']);
-?>
-
-<?php if ($isLoggedIn): ?>
-<header class="site-header site-header--auth">
+<?php ?>
+<header class="site-header">
     <nav class="container nav" aria-label="Main navigation">
         <a class="brand" href="<?= BASE_URL ?>/dashboard/index.php">Library LMS</a>
         <div class="nav-links">
@@ -17,4 +12,3 @@
         </div>
     </nav>
 </header>
-<?php endif; ?>

@@ -52,6 +52,7 @@ CREATE TABLE books (
     year_published SMALLINT UNSIGNED NOT NULL,
     total_copies INT UNSIGNED NOT NULL DEFAULT 1,
     available_copies INT UNSIGNED NOT NULL DEFAULT 1,
+    CONSTRAINT chk_book_copies CHECK (total_copies >= available_copies),
 
     CONSTRAINT fk_book_author
     FOREIGN KEY (author_id)
@@ -73,6 +74,8 @@ CREATE TABLE loans (
     date_issued DATE NOT NULL,
     due_date DATE NOT NULL,
     date_returned DATE NULL,
+    CONSTRAINT chk_due_date CHECK (due_date >= date_issued),
+    CONSTRAINT chk_return_date CHECK (date_returned IS NULL OR date_returned >= date_issued),
 
     CONSTRAINT fk_loan_member
     FOREIGN KEY (member_id)

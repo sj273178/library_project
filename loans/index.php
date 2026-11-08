@@ -3,19 +3,22 @@
 require_once __DIR__ . '/../includes/auth_check.php';
 
 $status = $_GET['status'] ?? 'active';
+$query = trim((string) ($_GET['q'] ?? ''));
 $where = match ($status) {
     'returned' => 'l.date_returned IS NOT NULL',
     'overdue' => 'l.date_returned IS NULL AND l.due_date < CURDATE()',
     default => 'l.date_returned IS NULL',
 };
-$loans = $pdo->query(
+$statement = $pdo->prepare(
     "SELECT l.*, b.title, m.full_name
      FROM loans l
      JOIN books b ON b.book_id = l.book_id
      JOIN members m ON m.member_id = l.member_id
-     WHERE {$where}
+     WHERE {$where} AND (b.title LIKE ? OR m.full_name LIKE ? OR m.member_number LIKE ?)
      ORDER BY l.due_date"
-)->fetchAll();
+);
+$statement->execute(["%{$query}%", "%{$query}%", "%{$query}%"]);
+$loans = $statement->fetchAll();
 $page_title = 'Loans';
 require __DIR__ . '/../includes/header.php';
 ?>
@@ -24,15 +27,16 @@ require __DIR__ . '/../includes/header.php';
     <a class="button" href="issue.php">Issue book</a>
 </div>
 <div class="card">
-    <form method="get">
-        <label>Status
+    <form method="get" class="form-grid">
+        <div><label>Search book or member<input name="q" value="<?= e($query) ?>"></label></div>
+        <div><label>Status
             <select name="status">
                 <option value="active" <?= $status === 'active' ? 'selected' : '' ?>>Active</option>
                 <option value="overdue" <?= $status === 'overdue' ? 'selected' : '' ?>>Overdue</option>
                 <option value="returned" <?= $status === 'returned' ? 'selected' : '' ?>>Returned</option>
             </select>
-        </label>
-        <p><button class="button">Filter</button></p>
+        </label></div>
+        <div class="full"><button class="button">Filter</button></div>
     </form>
 </div>
 <div class="card" style="margin-top: 20px">
@@ -48,7 +52,7 @@ require __DIR__ . '/../includes/header.php';
                     <td><?= e($loan['date_returned'] ?? '—') ?></td>
                     <td>
                         <?php if (!$loan['date_returned']): ?>
-                            <a class="button small" href="return.php?id=<?= $loan['loan_id'] ?>" data-confirm="Mark this book returned?">Return</a>
+                            <form method="post" action="return.php" class="inline-form"><input type="hidden" name="id" value="<?= $loan['loan_id'] ?>"><button class="button small" data-confirm="Mark this book returned?">Return</button></form>
                         <?php endif; ?>
                     </td>
                 </tr>

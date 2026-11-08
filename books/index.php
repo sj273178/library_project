@@ -27,8 +27,9 @@ require __DIR__ . '/../includes/header.php';
     <form method="get" class="form-grid">
         <div><label>Search<input name="q" value="<?= e($query) ?>" placeholder="Title, author or category"></label></div>
         <div><label>Category<select name="category"><option value="">All categories</option>
-//space for php code.
-
+            <?php foreach ($categories as $item): ?>
+                <option value="<?= $item['category_id'] ?>" <?= $category === (int) $item['category_id'] ? 'selected' : '' ?>><?= e($item['name']) ?></option>
+            <?php endforeach; ?>
         </select></label></div>
         <div class="full"><button class="button">Search</button></div>
     </form>
@@ -36,7 +37,7 @@ require __DIR__ . '/../includes/header.php';
 <div class="card" style="margin-top: 20px"><div class="table-wrap"><table>
     <tr><th>ISBN</th><th>Title</th><th>Author</th><th>Category</th><th>Available</th><th>Actions</th></tr>
  <?php foreach ($books as $book): ?>
-        <tr><td><?= e($book['isbn']) ?></td><td><?= e($book['title']) ?></td><td><?= e($book['author']) ?></td><td><?= e($book['category']) ?></td><td><?= $book['available_copies'] ?> / <?= $book['total_copies'] ?></td><td class="actions"><a class="button small secondary" href="edit.php?id=<?= $book['book_id'] ?>">Edit</a><a class="button small danger" data-confirm="Delete this book?" href="delete.php?id=<?= $book['book_id'] ?>">Delete</a></td></tr>
+        <tr><td><?= e($book['isbn']) ?></td><td><?= e($book['title']) ?></td><td><?= e($book['author']) ?></td><td><?= e($book['category']) ?></td><td><?= $book['available_copies'] ?> / <?= $book['total_copies'] ?></td><td class="actions"><a class="button small secondary" href="edit.php?id=<?= $book['book_id'] ?>">Edit</a><form method="post" action="delete.php" class="inline-form"><input type="hidden" name="id" value="<?= $book['book_id'] ?>"><button class="button small danger" data-confirm="Delete this book?">Delete</button></form></td></tr>
     <?php endforeach; ?>
 </table></div></div>
 <?php require __DIR__ . '/../includes/footer.php'; ?>

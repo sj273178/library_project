@@ -1,4 +1,5 @@
 <?php
+// Owner: Chao Li | Commit stage: 1 of 1 (shared page header)
 if (!isset($page_title)) {
     $page_title = 'Library Management System';
 }
@@ -12,7 +13,7 @@ if (!isset($page_title)) {
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/styles.css">
 </head>
 <body>
-    <?php require __DIR__ . '/navbar.php'; ?>
+    <?php if (!empty($_SESSION['user_id'])) { require __DIR__ . '/navbar.php'; } ?>
     <main class="page">
         <div class="container">
             <?php show_flash(); ?>

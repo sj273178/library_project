@@ -2,7 +2,8 @@
 
 require_once __DIR__ . '/../includes/auth_check.php';
 
-$id = (int) ($_GET['id'] ?? 0);
+$id = valid_id((string) ($_GET['id'] ?? ''));
+if (!$id) { flash('error', 'Book not found.'); redirect('/books/index.php'); }
 $statement = $pdo->prepare('SELECT * FROM books WHERE book_id = ?');
 $statement->execute([$id]);
 $book = $statement->fetch();
@@ -16,12 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $total = integer(post('total_copies'), 1);
     $year = integer(post('year_published'), 1000);
     $onLoan = $book['total_copies'] - $book['available_copies'];
-    if (!$total || $total < $onLoan || !$year || $year > (int) date('Y')) {
+    $authorId = valid_id(post('author_id'));
+    $categoryId = valid_id(post('category_id'));
+    if (post('isbn') === '' || post('title') === '' || post('publisher') === '' || !$authorId || !$categoryId || !$total || $total < $onLoan || !$year || $year > (int) date('Y')) {
         $error = 'Use valid values; total copies cannot be below copies on loan.';
     } else {
         try {
             $available = $total - $onLoan;
-            $pdo->prepare('UPDATE books SET isbn = ?, title = ?, author_id = ?, category_id = ?, publisher = ?, year_published = ?, total_copies = ?, available_copies = ? WHERE book_id = ?')->execute([post('isbn'), post('title'), (int) post('author_id'), (int) post('category_id'), post('publisher'), $year, $total, $available, $id]);
+            $pdo->prepare('UPDATE books SET isbn = ?, title = ?, author_id = ?, category_id = ?, publisher = ?, year_published = ?, total_copies = ?, available_copies = ? WHERE book_id = ?')->execute([post('isbn'), post('title'), $authorId, $categoryId, post('publisher'), $year, $total, $available, $id]);
             flash('success', 'Book updated successfully.');
             redirect('/books/index.php');
         } catch (PDOException $exception) {

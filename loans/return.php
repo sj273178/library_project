@@ -2,7 +2,8 @@
 
 require_once __DIR__ . '/../includes/auth_check.php';
 
-$id = (int) ($_GET['id'] ?? 0);
+$id = $_SERVER['REQUEST_METHOD'] === 'POST' ? valid_id(post('id')) : null;
+if (!$id) { flash('error', 'Invalid loan selected.'); redirect('/loans/index.php'); }
 
 try {
     $pdo->beginTransaction();

@@ -45,3 +45,8 @@ function integer(string $value, int $minimum = 0): ?int
     $result = filter_var($value, FILTER_VALIDATE_INT, ['options' => ['min_range' => $minimum]]);
     return $result !== false ? (int) $result : null;
 }
+
+function valid_id(string $value): ?int
+{
+    return integer($value, 1);
+}
