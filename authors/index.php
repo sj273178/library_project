@@ -1,5 +1,4 @@
 <?php
-// Owner: Farid Musa | Commit stage: 1 of 1 (authors management)
 require_once __DIR__ . '/../includes/auth_check.php';
 
 $errors = [];
