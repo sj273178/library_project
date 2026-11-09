@@ -1,5 +1,6 @@
 .env
-.DS_Store
 node_modules/
 dist/
-*..
+# macOS system files
+.DS_Store
+**/.DS_Store
